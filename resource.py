@@ -1,120 +1,3 @@
-# class ResourceType:
-#     def __init__(self, resource_dict={}):
-#         self.res = resource_dict
-#
-#     def __add__(self, other):
-#         if isinstance(other, self.__class__):
-#             keys = list(set(list(self.res.keys()) + list(other.res.keys())))
-#             new_dict = {}
-#             for key in keys:
-#                 new_dict[key] = self.res.get(key, 0) + other.res.get(key, 0)
-#             return ResourceType(resource_dict=new_dict)
-#
-#     def __sub__(self, other):
-#         if isinstance(other, self.__class__):
-#             keys = list(set(list(self.res.keys()) + list(other.res.keys())))
-#             new_dict = {}
-#             for key in keys:
-#                 value = self.res.get(key, 0) - other.res.get(key, 0)
-#                 if value != 0:
-#                     new_dict[key] = value
-#             return ResourceType(resource_dict=new_dict)
-#
-#     def __lt__(self, other):
-#         if isinstance(other, self.__class__):
-#             keys = list(set(list(self.res.keys()) + list(other.res.keys())))
-#             for key in keys:
-#                 self_value = self.res.get(key, 0)
-#                 other_value = other.res.get(key, 0)
-#                 if self_value >= other_value:
-#                     return False
-#             return True
-#
-#         elif isinstance(other, int):
-#             keys = list(set(list(self.res.keys())))
-#             for key in keys:
-#                 self_value = self.res.get(key, 0)
-#                 other_value = other
-#                 if self_value >= other_value:
-#                     return False
-#             return True
-#
-#     def __gt__(self, other):
-#         if isinstance(other, self.__class__):
-#             keys = list(set(list(self.res.keys()) + list(other.res.keys())))
-#             for key in keys:
-#                 self_value = self.res.get(key, 0)
-#                 other_value = other.res.get(key, 0)
-#                 if self_value <= other_value:
-#                     return False
-#             return True
-#
-#         elif isinstance(other, int):
-#             keys = list(set(list(self.res.keys())))
-#             for key in keys:
-#                 self_value = self.res.get(key, 0)
-#                 other_value = other
-#                 if self_value <= other_value:
-#                     return False
-#             return True
-#
-#     def __eq__(self, other):
-#         if isinstance(other, self.__class__):
-#             keys = list(set(list(self.res.keys()) + list(other.res.keys())))
-#             for key in keys:
-#                 self_value = self.res.get(key, 0)
-#                 other_value = other.res.get(key, 0)
-#                 if self_value != other_value:
-#                     return False
-#             return True
-#
-#         elif isinstance(other, int):
-#             keys = list(set(list(self.res.keys())))
-#             for key in keys:
-#                 self_value = self.res.get(key, 0)
-#                 other_value = other
-#                 if self_value != other_value:
-#                     return False
-#             return True
-#
-#     def __floordiv__(self, other):
-#         if isinstance(other, self.__class__):
-#             keys = list(set(list(other.res.keys())))
-#             new_dict = {}
-#             for key in keys:
-#                 new_dict[key] = self.res.get(key, 0) // other.res.get(key, 1)
-#             return ResourceType(resource_dict=new_dict)
-#
-#         elif isinstance(other, int):
-#             keys = list(set(list(self.res.keys())))
-#             new_dict = {}
-#             for key in keys:
-#                 new_dict[key] = self.res.get(key, 0) // other
-#             return ResourceType(resource_dict=new_dict)
-#
-#     def __mul__(self, other):
-#         if isinstance(other, int):
-#             keys = list(set(list(self.res.keys())))
-#             new_dict = {}
-#             for key in keys:
-#                 new_dict[key] = self.res.get(key, 0) * other
-#             return ResourceType(resource_dict=new_dict)
-#         elif isinstance(other, float):
-#             keys = list(set(list(self.res.keys())))
-#             new_dict = {}
-#             for key in keys:
-#                 new_dict[key] = int(self.res.get(key, 0) * other)
-#             return ResourceType(resource_dict=new_dict)
-#
-#     def min(self):
-#         keys = self.res.keys()
-#         minimum = min([self.res[key] for key in keys])
-#         return minimum
-#
-#     def __repr__(self):
-#         return str(self.res)
-
-
 class ResourceType:
     def __init__(self, resource_dict=None):
         self.res = resource_dict if resource_dict is not None else {}
@@ -172,6 +55,9 @@ class ResourceType:
             new_dict = {key: int(value * other) for key, value in self.res.items()}
             return ResourceType(new_dict)
 
+    def min(self):
+        return min(self.res.values())
+    
     def scarcity_check(self, threshold):
         """Return keys of resources that are below a specified threshold."""
         return [key for key, value in self.res.items() if value < threshold]
