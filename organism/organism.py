@@ -1,6 +1,7 @@
 import organism.utils
 import genetics.basic_tools
 
+
 class Organism:
     def __init__(self, dna):
 

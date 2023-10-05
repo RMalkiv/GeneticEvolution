@@ -57,7 +57,7 @@ class ResourceType:
 
     def min(self):
         return min(self.res.values())
-    
+
     def scarcity_check(self, threshold):
         """Return keys of resources that are below a specified threshold."""
         return [key for key, value in self.res.items() if value < threshold]
